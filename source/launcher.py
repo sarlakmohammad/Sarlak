@@ -1,3 +1,6 @@
+#Copyright (c) 2025 @sarlakmohammad
+    #All rights reserved
+
 from customtkinter import *
 from contractor import Contractor
 from customer import Customer

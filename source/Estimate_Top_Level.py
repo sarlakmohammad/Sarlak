@@ -1,3 +1,6 @@
+#Copyright (c) 2025 @sarlakmohammad
+    #All rights reserved
+
 import customtkinter
 from customtkinter import CTkFont
 

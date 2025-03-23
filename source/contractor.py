@@ -1,11 +1,22 @@
+#Copyright (c) 2025 @sarlakmohammad
+    #All rights reserved
+
 import tkinter
 from tkinter import StringVar,ttk
 from tkinter.messagebox import showinfo, showerror, showwarning, askokcancel
 import customtkinter
 from customtkinter import CTkFont
-from database_project import DBProject
+from database_contractor import DBContractor
 
-class Project(customtkinter.CTkFrame):
+class Contractor(customtkinter.CTkFrame):
+
+    def is_numeric(self,event):
+        x = self.entry3.get()
+        if not x.isnumeric() and x != "":
+            showwarning('', 'phone number should be numeric!')
+            self.entry3.delete(0, 'end')
+            self.entry3.focus()
+
     def __init__(self,master,**kwargs):
         super().__init__(master,**kwargs)
 
@@ -35,7 +46,7 @@ class Project(customtkinter.CTkFrame):
         self.frame_3.grid(column=0, row=2, sticky='nsew')
         ############################################ column 1
         self.frame_4 = customtkinter.CTkFrame(self,
-                                              fg_color='#FF8C00',
+                                              fg_color='#8BA7C3',
                                               height=51
                                               )
         self.frame_4.grid(column=1, row=0,columnspan=3 ,sticky='nsew')
@@ -44,7 +55,7 @@ class Project(customtkinter.CTkFrame):
         self.frame_4.grid_columnconfigure(1,weight=1)
 
         self.frame_5 = customtkinter.CTkScrollableFrame(self,
-                                              fg_color='#FFB757',
+                                              fg_color='#A4D2FF',
                                               height=765,
                                               # scrollbar_button_color='#0000C0',
                                               # scrollbar_button_hover_color='#00009B'
@@ -54,19 +65,19 @@ class Project(customtkinter.CTkFrame):
         self.frame_5.grid_columnconfigure(0,weight=1)
 
         self.frame_6 = customtkinter.CTkFrame(self,
-                                              fg_color='#FFA07A',#FF9292
+                                              fg_color='#ACBFD8',#FF9292
                                               height=255
                                               )
         self.frame_6.grid(column=1, row=2, sticky='nsew')
         ############################################ column 2
         self.frame_7 = customtkinter.CTkFrame(self,
-                                              fg_color='#FD7442',#A4FFB0
+                                              fg_color='#8E9EB3',#A4FFB0
                                               height=255
                                               )
         self.frame_7.grid(column=2, row=2, sticky='nsew')
         ############################################ column 3
         self.frame_8 = customtkinter.CTkFrame(self,
-                                              fg_color='#FF4500',#C5FFA4
+                                              fg_color='#74899E',#C5FFA4
                                               height=255
                                               )
         self.frame_8.grid(column=3, row=2, sticky='nsew')
@@ -74,7 +85,7 @@ class Project(customtkinter.CTkFrame):
         ########################################################### vigets
         ############################################ row 0
         self.tab_name = customtkinter.CTkLabel(self.frame_1,
-                                            text='پروژه جدید',
+                                            text='پیمانکار جدید',
                                             font=CTkFont(family='B Nazanin',size=30,weight='bold'),
                                             text_color="black"
                                             )
@@ -105,7 +116,7 @@ class Project(customtkinter.CTkFrame):
         self.entry_frame1 = customtkinter.CTkFrame(self.frame_2,fg_color='#F5FFFA')
         self.entry_frame1.grid(column=0,row=0,sticky='nsew')
         self.text_entry1 = customtkinter.CTkLabel(self.entry_frame1,
-                                            text=':اسم پروژه',
+                                            text=':پیمانکار',
                                             font=CTkFont(family='B Nazanin', size=30),
                                             text_color="black"
                                             )
@@ -124,7 +135,7 @@ class Project(customtkinter.CTkFrame):
         self.entry_frame2 = customtkinter.CTkFrame(self.frame_2, fg_color='#F5FFFA')
         self.entry_frame2.grid(column=0, row=1, sticky='nsew')
         self.text_entry2 = customtkinter.CTkLabel(self.entry_frame2,
-                                                  text=':آیدی مشتری',
+                                                  text=':نام شخص',
                                                   font=CTkFont(family='B Nazanin', size=30),
                                                   text_color="black"
                                                   )
@@ -135,14 +146,15 @@ class Project(customtkinter.CTkFrame):
                                              height=35,
                                              width=200,
                                              text_color='black',
-                                             font=CTkFont(family='Arial',size=20)
+                                             font=CTkFont(family='B Nazanin',size=20),
+                                             justify='right'
                                              )
         self.entry2.pack()
         ##################
         self.entry_frame3 = customtkinter.CTkFrame(self.frame_2, fg_color='#F5FFFA')
         self.entry_frame3.grid(column=0, row=2, sticky='nsew')
         self.text_entry3 = customtkinter.CTkLabel(self.entry_frame3,
-                                                  text=':برآورد هزینه',
+                                                  text=':شماره تلفن',
                                                   font=CTkFont(family='B Nazanin', size=30),
                                                   text_color="black"
                                                   )
@@ -156,21 +168,12 @@ class Project(customtkinter.CTkFrame):
                                              font=CTkFont(size=20)
                                              )
         self.entry3.pack()
-        self.estimate_btn = customtkinter.CTkButton(self.entry_frame3,
-                                                width=200,
-                                                font=CTkFont(family='B Nazanin', size=30),
-                                                fg_color='#008B8B',
-                                                text='برآورد',
-                                                text_color='white',
-                                                hover_color='#007373',
-                                                # command=self.open_toplevel
-                                                )
-        self.estimate_btn.pack()
+        self.entry3.bind('<FocusOut>', command=self.is_numeric)
         ##################
         self.entry_frame4 = customtkinter.CTkFrame(self.frame_2, fg_color='#F5FFFA')
         self.entry_frame4.grid(column=0, row=3, sticky='nsew')
         self.text_entry4 = customtkinter.CTkLabel(self.entry_frame4,
-                                                  text=':تاریخ شروع',
+                                                  text=':شماره موبایل',
                                                   font=CTkFont(family='B Nazanin', size=30),
                                                   text_color="black"
                                                   )
@@ -181,8 +184,7 @@ class Project(customtkinter.CTkFrame):
                                              height=35,
                                              width=200,
                                              text_color='black',
-                                             font=CTkFont(size=20),
-                                             placeholder_text='1404/01/01'
+                                             font=CTkFont(size=20)
                                              )
         self.entry4.pack()
         ##################
@@ -231,29 +233,29 @@ class Project(customtkinter.CTkFrame):
         style.map("Treeview.Heading",
                   background=[('active', '#3484F0')])
 
-        self.column = ['id','پروژه','مشتری','برآورد','هزینه','مغایرت','پرداختی','وضعیت تسویه']
+        self.column = ['id','پیمانکار','نام شخص','شماره تلفن','شماره موبایل','بدهکار','بستانکار','مانده']
         self.data_table = ttk.Treeview(self.frame_5,
                                        columns=self.column,
                                        selectmode='browse',
                                        height=12
                                        )
         self.data_table.grid(column=0,row=0,sticky='nsew')
-        self.data_table.column('id',width=100,minwidth=0,anchor='center',stretch=False)
+        self.data_table.column('id',width=50,minwidth=0,anchor='center',stretch=False)
         self.data_table.heading('id',text='ID')
-        self.data_table.column('پروژه', width=250, minwidth=0, anchor='center', stretch=False)
-        self.data_table.heading('پروژه', text='پروژه')
-        self.data_table.column('مشتری', width=250, minwidth=0, anchor='center', stretch=False)
-        self.data_table.heading('مشتری', text='مشتری')
-        self.data_table.column('برآورد', width=200, minwidth=0, anchor='center', stretch=False)
-        self.data_table.heading('برآورد', text='برآورد')
-        self.data_table.column('هزینه', width=200, minwidth=0, anchor='center', stretch=False)
-        self.data_table.heading('هزینه', text='هزینه')
-        self.data_table.column('مغایرت', width=100, minwidth=0, anchor='center', stretch=False)
-        self.data_table.heading('مغایرت', text='مغایرت')
-        self.data_table.column('پرداختی', width=200, minwidth=0, anchor='center', stretch=False)
-        self.data_table.heading('پرداختی', text='پرداختی')
-        self.data_table.column('وضعیت تسویه', width=100, minwidth=0, anchor='center')
-        self.data_table.heading('وضعیت تسویه', text='وضعیت تسویه')
+        self.data_table.column('پیمانکار', width=250, minwidth=0, anchor='center', stretch=False)
+        self.data_table.heading('پیمانکار', text='پیمانکار')
+        self.data_table.column('نام شخص', width=250, minwidth=0, anchor='center', stretch=False)
+        self.data_table.heading('نام شخص', text='نام')
+        self.data_table.column('شماره تلفن', width=150, minwidth=0, anchor='center', stretch=False)
+        self.data_table.heading('شماره تلفن', text=' تلفن')
+        self.data_table.column('شماره موبایل', width=220, minwidth=0, anchor='center', stretch=False)
+        self.data_table.heading('شماره موبایل', text='موبایل')
+        self.data_table.column('بدهکار', width=200, minwidth=0, anchor='center', stretch=False)
+        self.data_table.heading('بدهکار', text='بدهکار')
+        self.data_table.column('بستانکار', width=200, minwidth=0, anchor='center', stretch=False)
+        self.data_table.heading('بستانکار', text='بستانکار')
+        self.data_table.column('مانده', width=200, minwidth=0, anchor='center')
+        self.data_table.heading('مانده', text='مانده')
 
         self.data_table.tag_configure('0', font=CTkFont(family='B Nazanin', size=35),background='#1D5BB9')
         self.data_table.tag_configure('1', font=CTkFont(family='B Nazanin', size=35),background='#C00202')
@@ -263,7 +265,7 @@ class Project(customtkinter.CTkFrame):
         ############################################ row 2 (1)
         self.delete_text = customtkinter.CTkLabel(self.frame_3,
                                                   font=CTkFont(family='B Nazanin', size=30,weight='bold'),
-                                                  text='حذف پروژه',
+                                                  text='حذف پیمانکار (@شخص)',
                                                   text_color='black'
                                                   )
         self.delete_text.pack(pady=8)
@@ -275,7 +277,7 @@ class Project(customtkinter.CTkFrame):
                                                    width=320,
                                                    text_color='black',
                                                    font=CTkFont(size=30,family='B Nazanin'),
-                                                   placeholder_text='پروژه مورد نظر را حذف کنید',
+                                                   placeholder_text='پیمانکار مورد نظر را حذف کنید',
                                                    justify='right'
                                                    )
         self.delete_entry.pack(pady=(10,0))
@@ -287,13 +289,13 @@ class Project(customtkinter.CTkFrame):
                                                   font=CTkFont(family='B Nazanin', size=30),
                                                   text_color='white',
                                                   hover_color='#DE0000',
-                                                  command=self.delete_project
+                                                  command=self.delete_contractor
                                                   )
         self.delete_btn.pack(pady=20)
         ############################################ row 2 (2)
-        self.debt_or_paid_var1 = StringVar(value='هزینه')
+        self.debt_or_paid_var1 = StringVar(value='بدهی')
         self.debt_or_paid = customtkinter.CTkSegmentedButton(self.frame_6,
-                                                             values=['پرداختی','هزینه'],
+                                                             values=['بستانکاری','بدهی'],
                                                              font=CTkFont(family='B Nazanin', size=30,weight='bold'),
                                                              height=30,
                                                              variable=self.debt_or_paid_var1,
@@ -313,7 +315,7 @@ class Project(customtkinter.CTkFrame):
                                                          width=300,
                                                          text_color='black',
                                                          font=CTkFont(size=28, family='B Nazanin'),
-                                                         placeholder_text='هزینه یا پرداختی را ثبت کنید',
+                                                         placeholder_text='بدهی یا بستانکاری را اضافه کنید',
                                                          )
         self.debt_or_paid_entry.pack(pady=(10,0))
 
@@ -325,13 +327,13 @@ class Project(customtkinter.CTkFrame):
                                                    font=CTkFont(family='B Nazanin', size=30),
                                                    text_color='white',
                                                    hover_color='#2079D2',
-                                                   command=self.add_cost_or_paid
+                                                   command=self.add_debt_or_paid
                                                    )
         self.debt_or_paid_btn.pack(pady=20)
         ############################################ row 2 (3)
         self.search_text1 = customtkinter.CTkLabel(self.frame_7,
                                                   font=CTkFont(family='B Nazanin', size=30, weight='bold'),
-                                                  text='پیدا کردن پروژه',
+                                                  text='نام پیمانکار',
                                                   text_color='black'
                                                   )
         self.search_text1.pack(pady=8)
@@ -343,7 +345,7 @@ class Project(customtkinter.CTkFrame):
                                                    width=300,
                                                    text_color='black',
                                                    font=CTkFont(size=30, family='B Nazanin'),
-                                                   placeholder_text='آیدی یا اسم پروژه را وارد کنید',
+                                                   placeholder_text='پیمانکار مورد نظر را پیدا کنید',
                                                    justify='right'
                                                    )
         self.search_entry1.pack(pady=(10, 0))
@@ -355,39 +357,39 @@ class Project(customtkinter.CTkFrame):
                                                   font=CTkFont(family='Arial', size=30),
                                                   text_color='white',
                                                   hover_color='#2079D2',
-                                                  command=self.search_project
+                                                  command=self.search_contractor
                                                   )
         self.search_btn1.pack(pady=20)
         ############################################ row 2 (4)
-        self.show_con_txt = customtkinter.CTkLabel(self.frame_8,
+        self.search_text2 = customtkinter.CTkLabel(self.frame_8,
                                                    font=CTkFont(family='B Nazanin', size=30, weight='bold'),
-                                                   text='پیمانکار های پروژه',
+                                                   text='نام شخص',
                                                    text_color='black'
                                                    )
-        self.show_con_txt.pack(pady=8)
+        self.search_text2.pack(pady=8)
 
-        self.show_con_entry = customtkinter.CTkEntry(self.frame_8,
+        self.search_entry2 = customtkinter.CTkEntry(self.frame_8,
                                                     corner_radius=10,
                                                     fg_color='white',
                                                     height=70,
                                                     width=300,
                                                     text_color='black',
                                                     font=CTkFont(size=30, family='B Nazanin'),
-                                                    placeholder_text='آیدی پیمانکار را وارد کنید',
+                                                    placeholder_text='شخص مورد نظر را پیدا کنید',
                                                     justify='right'
                                                     )
-        self.show_con_entry.pack(pady=(10, 0))
+        self.search_entry2.pack(pady=(10, 0))
 
-        self.show_con_btn = customtkinter.CTkButton(self.frame_8,
+        self.search_btn2 = customtkinter.CTkButton(self.frame_8,
                                                    fg_color='#1E90FF',
                                                    corner_radius=50,
                                                    text='search',
                                                    font=CTkFont(family='Arial', size=30),
                                                    text_color='white',
                                                    hover_color='#2079D2',
-                                                   # command=
+                                                   command=self.search_cont_name
                                                    )
-        self.show_con_btn.pack(pady=20)
+        self.search_btn2.pack(pady=20)
 
         self.grid_columnconfigure(0, weight=3)
         self.grid_columnconfigure(1, weight=2)
@@ -397,50 +399,37 @@ class Project(customtkinter.CTkFrame):
         self.grid_rowconfigure(1, weight=15)
         self.grid_rowconfigure(2, weight=3)
 
-    db_project = DBProject('Data/sarlak1404.db')
+    db_contractor = DBContractor('Data/sarlak1404.db')
 
-    # done_image = tkinter.PhotoImage(file='image/1.png')
-    # not_done_image = tkinter.PhotoImage(file='image/0.png')
     def refresh(self):
         for item in self.data_table.get_children():
             self.data_table.delete(item)
 
-        _data = self.db_project.show_data()
-        for project in _data:
-
-            project = list(project)
-            ######################### edit contradiction
-            try:
-                _contradiction = int(project[5])
-                _contradiction = _contradiction / int(project[4]) * 100
-                project[5] = f'{int(_contradiction)}%'
-            except ZeroDivisionError:
-                project[5] = f'? %'
-
+        _data = self.db_contractor.show_data()
+        for contractor in _data:
             ######################### adding ***,***
-            for i in [3,4,6]:
-                _copy = project[i]
-                project.pop(i)
-                _copy = f"{_copy:,}"
-                project.insert(i,_copy)
-
-            project[7] = bool(project[7])
-            self.data_table.insert('', tkinter.END, values=project, tags='0')
+            contractor = list(contractor)
+            _copy = contractor.copy()
+            _copy = _copy[-3:]
+            for i in range(3):
+                contractor.pop()
+            for i in _copy:
+                x = f"{i:,}"
+                contractor.append(x)
+            #########################
+            self.data_table.insert('', tkinter.END, values=contractor, tags='0')
 
     def set_entry(self):
-        project = self.entry1.get()
-        customer_id = self.entry2.get()
-        estimate = self.entry3.get()
-        estimate = estimate.replace('.', '')
-        estimate = estimate.replace(',', '')
-        date = self.entry4.get()
-        date = date.replace("/","-")
-        if project and estimate and customer_id:
-            self.db_project.insert_into(project, customer_id, estimate, date)
+        contractor = self.entry1.get()
+        data = self.entry2.get()
+        landline = self.entry3.get()
+        phone_number = self.entry4.get()
+        if contractor:
+            self.db_contractor.insert_into(contractor, data, landline, phone_number)
             self.refresh()
             showinfo('good','completed!')
         else:
-            showerror('empty entry!','you should fill <اسم پروژه> and <برآورد> and <آیدی مشتری>')
+            showerror('empty!','you should fill <پیمانکار>')
 
     def clear_entry(self):
         self.entry1.delete(0,'end')
@@ -448,30 +437,37 @@ class Project(customtkinter.CTkFrame):
         self.entry3.delete(0,'end')
         self.entry4.delete(0,'end')
 
-    def delete_project(self):
-        _project = self.delete_entry.get()
-        if _project == "":
+    def delete_contractor(self):
+        _contractor = self.delete_entry.get()
+        if _contractor == "":
             showerror('empty entry','you should enter something first!')
-        elif _project.isnumeric():
-            _data = self.db_project.get_data1(_project)
+        elif _contractor.isnumeric():
+            _data = self.db_contractor.get_data1(_contractor)
             if _data:
-                if askokcancel('are you sure?','this action changes the main DataBase'):
-                    self.db_project.delete_data1(_project)
-                    showinfo('deleted', f'ID={self.delete_entry.get()} is successfully deleted')
-                    self.delete_entry.delete(0, 'end')
-                    self.refresh()
+                self.db_contractor.delete_data1(_contractor)
+                showinfo('deleted', f'ID={self.delete_entry.get()} is successfully deleted')
+                self.delete_entry.delete(0, 'end')
+                self.refresh()
             else:
-                showwarning(':/', f'ID={_project} not founded!')
+                showwarning(':/', f'ID={_contractor} not founded!')
+        elif _contractor[0] == '@':
+            _data = self.db_contractor.get_data2(_contractor[1:])
+            if _data:
+                self.db_contractor.delete_data2(_contractor[1:])
+                showinfo('deleted', f'{_contractor[1:]} is successfully deleted')
+                self.delete_entry.delete(0, 'end')
+                self.refresh()
+            else:
+                showwarning(':/', f'{_contractor[1:]} not founded!')
         else:
-            _data = self.db_project.get_data2(_project)
+            _data = self.db_contractor.get_data3(_contractor)
             if _data:
-                if askokcancel('are you sure?','this action changes the main DataBase'):
-                    self.db_project.delete_data2(_project)
-                    showinfo('deleted',f'{self.delete_entry.get()} is successfully deleted')
-                    self.delete_entry.delete(0,'end')
-                    self.refresh()
+                self.db_contractor.delete_data3(_contractor)
+                showinfo('deleted',f'{self.delete_entry.get()} is successfully deleted')
+                self.delete_entry.delete(0,'end')
+                self.refresh()
             else:
-                showwarning(':/',f'{_project} not founded!')
+                showwarning(':/',f'{_contractor} not founded!')
 
     def delete_selection(self):
         try:
@@ -480,42 +476,31 @@ class Project(customtkinter.CTkFrame):
         except IndexError:
             pass
 
-    def search_project(self):
+    def search_contractor(self):
         for item in self.data_table.get_children():
             self.data_table.delete(item)
         _name = self.search_entry1.get()
-        if _name.isnumeric():
-            _data = self.db_project.search_data1(_name)
-        else:
-            _data = self.db_project.search_data2(_name)
+        _data = self.db_contractor.search_data1(_name)
         _number = 0
         try:
             for data in _data:
-
-                data = list(data)
-                #########################  edit contradiction
-                try:
-                    _contradiction = int(data[5])
-                    _contradiction = _contradiction / int(data[4]) * 100
-                    data[5] = f'{int(_contradiction)}%'
-                except ZeroDivisionError:
-                    data[5] = f'? %'
-
                 ######################### adding ***,***
-                for i in [3, 4, 6]:
-                    _copy = data[i]
-                    data.pop(i)
-                    _copy = f"{_copy:,}"
-                    data.insert(i, _copy)
-
-                data[7] = bool(data[7])
+                data = list(data)
+                _copy = data.copy()
+                _copy = _copy[-3:]
+                for i in range(3):
+                    data.pop()
+                for i in _copy:
+                    x = f"{i:,}"
+                    data.append(x)
+                #########################
                 _number += 1
-                if data[5][0] == '-':
-                    self.data_table.insert('', tkinter.END, values=data, text='ضرر', tags='1')
-                elif data[5] == '0%' or data[5] == '? %':
-                    self.data_table.insert('', tkinter.END, values=data, text='بی سود و زیان', tags='3')
+                if data[7][0] == '-':
+                    self.data_table.insert('', tkinter.END, values=data, text='طلبکار', tags='2')
+                elif data[7] == '0':
+                    self.data_table.insert('', tkinter.END, values=data, text='بی حساب', tags='3')
                 else:
-                    self.data_table.insert('', tkinter.END, values=data, text='سود', tags='2')
+                    self.data_table.insert('', tkinter.END, values=data, text='بدهکار', tags='1')
             if _number == 0:
                 raise TypeError
             showinfo('successful', f'{_number} item is founded')
@@ -523,53 +508,56 @@ class Project(customtkinter.CTkFrame):
         except TypeError:
             showwarning('oops', 'nothing founded!')
 
-    def add_cost_or_paid(self):
+    def search_cont_name(self):
+        for item in self.data_table.get_children():
+            self.data_table.delete(item)
+        _name = self.search_entry2.get()
+        _data = self.db_contractor.search_data2(_name)
+        _number = 0
+        try:
+            for data in _data:
+                ######################### adding ***,***
+                data = list(data)
+                _copy = data.copy()
+                _copy = _copy[-3:]
+                for i in range(3):
+                    data.pop()
+                for i in _copy:
+                    x = f"{i:,}"
+                    data.append(x)
+                #########################
+                _number += 1
+                if data[7][0] == '-':
+                    self.data_table.insert('', tkinter.END, values=data, text='طلبکار', tags='2')
+                elif data[7] == '0':
+                    self.data_table.insert('', tkinter.END, values=data, text='بی حساب', tags='3')
+                else:
+                    self.data_table.insert('', tkinter.END, values=data, text='بدهکار', tags='1')
+            if _number == 0:
+                raise TypeError
+            showinfo('successful', f'{_number} item is founded')
+        except TypeError:
+            showwarning('oops', 'nothing founded!')
+
+    def add_debt_or_paid(self):
         _text = self.debt_or_paid.get()
         _money = self.debt_or_paid_entry.get()
-        _money = _money.replace('.','')
-        _money = _money.replace(',','')
+        _money = _money.replace('.', '')
+        _money = _money.replace(',', '')
         try:
             _selection = self.data_table.selection()[0]
             _options = self.data_table.item(_selection, option='values')
-            if _text == 'هزینه' and _money:
+            if _text == 'بدهی' and _money:
                 if askokcancel('are you sure?','this action changes the main DataBase'):
-                    _paid = int(_options[6].replace(',',''))
-                    _cost = int(_money)
-                    _contradiction = _paid - _cost
-                    self.db_project.change_data1(_money,_options[0])
-                    self.db_project.update_data1(_options[0],_contradiction)
-                    self.db_project.update_data2(_options[0])
+                    self.db_contractor.change_data1(_money,_options[0])
+                    self.db_contractor.update_data(_options[0])
                     self.refresh()
-            elif _text == 'پرداختی' and _money:
+            elif _text == 'بستانکاری' and _money:
                 if askokcancel('are you sure?','this action changes the main DataBase'):
-                    _paid = int(_money)
-                    _cost = int(_options[4].replace(',', ''))
-                    _contradiction = _paid - _cost
-                    self.db_project.change_data2(_money, _options[0])
-                    self.db_project.update_data1(_options[0], _contradiction)
-                    self.db_project.update_data2(_options[0])
+                    self.db_contractor.change_data2(_money, _options[0])
+                    self.db_contractor.update_data(_options[0])
                     self.refresh()
             else:
                 showwarning('not allowed!',"debt/paid can't be empty")
         except IndexError:
             showerror('oops','please select something from table first!')
-
-    def set_income(self):
-        _dict = {}
-        _data = self.db_project.show_income()
-        for data in _data:
-            _income = data[0]
-            _income = int(_income)
-            _income /= 10000000
-            _income = round(_income,2)
-
-            _date = data[1]
-            _date = _date.split('-')
-            _date = int(_date[1])
-
-            try:
-                _dict[_date] = _income + _dict.get(_date)
-            except TypeError:
-                _dict[_date] = _income
-
-        return _dict.items()

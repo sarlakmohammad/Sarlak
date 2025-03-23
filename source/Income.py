@@ -1,3 +1,6 @@
+#Copyright (c) 2025 @sarlakmohammad
+    #All rights reserved
+
 import matplotlib.pyplot as plt
 
 def open_income_page(items:list):

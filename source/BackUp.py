@@ -1,3 +1,6 @@
+#Copyright (c) 2025 @sarlakmohammad
+    #All rights reserved
+
 import shutil
 from tkinter.filedialog import askdirectory
 
