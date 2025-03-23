@@ -8,7 +8,7 @@ class DBContractor:
         self.cursor.execute('''
         CREATE TABLE IF NOT EXISTS db_contractor(
             contractor_id INTEGER PRIMARY KEY AUTOINCREMENT,
-            contractor NVARCHAR(50) UNIQUE,
+            contractor NVARCHAR(50) NOT NULL UNIQUE,
             cont_name NVARCHAR(50),
             landline VARCHAR(50),
             phone_number VARCHAR(50),

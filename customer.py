@@ -44,7 +44,7 @@ class Customer(customtkinter.CTkFrame):
         self.frame_3.grid(column=0, row=2, sticky='nsew')
         ############################################ column 1
         self.frame_4 = customtkinter.CTkFrame(self,
-                                              fg_color='#3CB371',
+                                              fg_color='#0EB95E',
                                               height=51
                                               )
         self.frame_4.grid(column=1, row=0,columnspan=3 ,sticky='nsew')
@@ -63,19 +63,19 @@ class Customer(customtkinter.CTkFrame):
         self.frame_5.grid_columnconfigure(0,weight=1)
 
         self.frame_6 = customtkinter.CTkFrame(self,
-                                              fg_color='#41B674',#FF9292
+                                              fg_color='#2BDF79',#FF9292
                                               height=255
                                               )
         self.frame_6.grid(column=1, row=2, sticky='nsew')
         ############################################ column 2
         self.frame_7 = customtkinter.CTkFrame(self,
-                                              fg_color='#2E8B57',#A4FFB0
+                                              fg_color='#19A556',#A4FFB0
                                               height=255
                                               )
         self.frame_7.grid(column=2, row=2, sticky='nsew')
         ############################################ column 3
         self.frame_8 = customtkinter.CTkFrame(self,
-                                              fg_color='#2E8B57',#C5FFA4
+                                              fg_color='#167D43',#C5FFA4
                                               height=255
                                               )
         self.frame_8.grid(column=3, row=2, sticky='nsew')
@@ -195,7 +195,7 @@ class Customer(customtkinter.CTkFrame):
                                                  font=CTkFont(family='B Nazanin', size=30),
                                                  text_color='white',
                                                  hover_color='#4E4E4E',
-                                                command=self.clear_entry
+                                                 command=self.clear_entry
                                                  )
         self.clear_btn.pack()
         self.submit_btn = customtkinter.CTkButton(self.entry_frame5,
@@ -422,12 +422,12 @@ class Customer(customtkinter.CTkFrame):
         customer = self.entry2.get()
         landline = self.entry3.get()
         phone_number = self.entry4.get()
-        if company or customer:
+        if company:
             self.db_customer.insert_into(company, customer, landline, phone_number)
             self.refresh()
             showinfo('good','completed!')
         else:
-            showerror('empty!','you should fill <شرکت> or <نام مشتری>')
+            showerror('empty!','you should fill <شرکت>')
 
     def clear_entry(self):
         self.entry1.delete(0,'end')
@@ -540,6 +540,8 @@ class Customer(customtkinter.CTkFrame):
     def add_debt_or_paid(self):
         _text = self.debt_or_paid.get()
         _money = self.debt_or_paid_entry.get()
+        _money = _money.replace('.', '')
+        _money = _money.replace(',', '')
         try:
             _selection = self.data_table.selection()[0]
             _options = self.data_table.item(_selection, option='values')

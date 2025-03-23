@@ -8,7 +8,7 @@ class DBCustomer:
         self.cursor.execute('''
         CREATE TABLE IF NOT EXISTS db_customer(
             customer_id INTEGER PRIMARY KEY AUTOINCREMENT,
-            company NVARCHAR(50) UNIQUE,
+            company NVARCHAR(50) NOT NULL UNIQUE,
             customer NVARCHAR(50),
             landline VARCHAR(50),
             phone_number VARCHAR(50),

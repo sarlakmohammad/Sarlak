@@ -156,6 +156,16 @@ class Project(customtkinter.CTkFrame):
                                              font=CTkFont(size=20)
                                              )
         self.entry3.pack()
+        self.estimate_btn = customtkinter.CTkButton(self.entry_frame3,
+                                                width=200,
+                                                font=CTkFont(family='B Nazanin', size=30),
+                                                fg_color='#008B8B',
+                                                text='برآورد',
+                                                text_color='white',
+                                                hover_color='#007373',
+                                                # command=self.open_toplevel
+                                                )
+        self.estimate_btn.pack()
         ##################
         self.entry_frame4 = customtkinter.CTkFrame(self.frame_2, fg_color='#F5FFFA')
         self.entry_frame4.grid(column=0, row=3, sticky='nsew')
@@ -228,7 +238,7 @@ class Project(customtkinter.CTkFrame):
                                        height=12
                                        )
         self.data_table.grid(column=0,row=0,sticky='nsew')
-        self.data_table.column('id',width=50,minwidth=0,anchor='center',stretch=False)
+        self.data_table.column('id',width=100,minwidth=0,anchor='center',stretch=False)
         self.data_table.heading('id',text='ID')
         self.data_table.column('پروژه', width=250, minwidth=0, anchor='center', stretch=False)
         self.data_table.heading('پروژه', text='پروژه')
@@ -303,7 +313,7 @@ class Project(customtkinter.CTkFrame):
                                                          width=300,
                                                          text_color='black',
                                                          font=CTkFont(size=28, family='B Nazanin'),
-                                                         placeholder_text='هزینه یا پرداختی را اضافه کنید',
+                                                         placeholder_text='هزینه یا پرداختی را ثبت کنید',
                                                          )
         self.debt_or_paid_entry.pack(pady=(10,0))
 
@@ -363,7 +373,7 @@ class Project(customtkinter.CTkFrame):
                                                     width=300,
                                                     text_color='black',
                                                     font=CTkFont(size=30, family='B Nazanin'),
-                                                    placeholder_text='آیدی یا اسم پروژه را وارد کنید',
+                                                    placeholder_text='آیدی پیمانکار را وارد کنید',
                                                     justify='right'
                                                     )
         self.show_con_entry.pack(pady=(10, 0))
@@ -389,34 +399,48 @@ class Project(customtkinter.CTkFrame):
 
     db_project = DBProject('Data/sarlak1404.db')
 
+    # done_image = tkinter.PhotoImage(file='image/1.png')
+    # not_done_image = tkinter.PhotoImage(file='image/0.png')
     def refresh(self):
         for item in self.data_table.get_children():
             self.data_table.delete(item)
 
         _data = self.db_project.show_data()
         for project in _data:
-            ######################### adding ***,***
+
             project = list(project)
+            ######################### edit contradiction
+            try:
+                _contradiction = int(project[5])
+                _contradiction = _contradiction / int(project[4]) * 100
+                project[5] = f'{int(_contradiction)}%'
+            except ZeroDivisionError:
+                project[5] = f'? %'
+
+            ######################### adding ***,***
             for i in [3,4,6]:
                 _copy = project[i]
                 project.pop(i)
                 _copy = f"{_copy:,}"
                 project.insert(i,_copy)
-            #########################
+
+            project[7] = bool(project[7])
             self.data_table.insert('', tkinter.END, values=project, tags='0')
 
     def set_entry(self):
         project = self.entry1.get()
         customer_id = self.entry2.get()
         estimate = self.entry3.get()
+        estimate = estimate.replace('.', '')
+        estimate = estimate.replace(',', '')
         date = self.entry4.get()
         date = date.replace("/","-")
-        if project:
+        if project and estimate and customer_id:
             self.db_project.insert_into(project, customer_id, estimate, date)
             self.refresh()
             showinfo('good','completed!')
         else:
-            showerror('empty!','you should fill <اسم پروژه>')
+            showerror('empty entry!','you should fill <اسم پروژه> and <برآورد> and <آیدی مشتری>')
 
     def clear_entry(self):
         self.entry1.delete(0,'end')
@@ -467,18 +491,28 @@ class Project(customtkinter.CTkFrame):
         _number = 0
         try:
             for data in _data:
-                ######################### adding ***,***
+
                 data = list(data)
+                #########################  edit contradiction
+                try:
+                    _contradiction = int(data[5])
+                    _contradiction = _contradiction / int(data[4]) * 100
+                    data[5] = f'{int(_contradiction)}%'
+                except ZeroDivisionError:
+                    data[5] = f'? %'
+
+                ######################### adding ***,***
                 for i in [3, 4, 6]:
                     _copy = data[i]
                     data.pop(i)
                     _copy = f"{_copy:,}"
                     data.insert(i, _copy)
-                #########################
+
+                data[7] = bool(data[7])
                 _number += 1
                 if data[5][0] == '-':
                     self.data_table.insert('', tkinter.END, values=data, text='ضرر', tags='1')
-                elif data[5] == '0%':
+                elif data[5] == '0%' or data[5] == '? %':
                     self.data_table.insert('', tkinter.END, values=data, text='بی سود و زیان', tags='3')
                 else:
                     self.data_table.insert('', tkinter.END, values=data, text='سود', tags='2')
@@ -492,24 +526,50 @@ class Project(customtkinter.CTkFrame):
     def add_cost_or_paid(self):
         _text = self.debt_or_paid.get()
         _money = self.debt_or_paid_entry.get()
+        _money = _money.replace('.','')
+        _money = _money.replace(',','')
         try:
             _selection = self.data_table.selection()[0]
             _options = self.data_table.item(_selection, option='values')
             if _text == 'هزینه' and _money:
                 if askokcancel('are you sure?','this action changes the main DataBase'):
-                    _estimate = int(_options[3].replace(',',''))
+                    _paid = int(_options[6].replace(',',''))
                     _cost = int(_money)
-                    _contradiction = int((_estimate - _cost)/_cost * 100)
+                    _contradiction = _paid - _cost
                     self.db_project.change_data1(_money,_options[0])
-                    self.db_project.update_data1(_options[0],f"{_contradiction}%")
+                    self.db_project.update_data1(_options[0],_contradiction)
                     self.db_project.update_data2(_options[0])
                     self.refresh()
             elif _text == 'پرداختی' and _money:
                 if askokcancel('are you sure?','this action changes the main DataBase'):
+                    _paid = int(_money)
+                    _cost = int(_options[4].replace(',', ''))
+                    _contradiction = _paid - _cost
                     self.db_project.change_data2(_money, _options[0])
+                    self.db_project.update_data1(_options[0], _contradiction)
                     self.db_project.update_data2(_options[0])
                     self.refresh()
             else:
                 showwarning('not allowed!',"debt/paid can't be empty")
         except IndexError:
             showerror('oops','please select something from table first!')
+
+    def set_income(self):
+        _dict = {}
+        _data = self.db_project.show_income()
+        for data in _data:
+            _income = data[0]
+            _income = int(_income)
+            _income /= 10000000
+            _income = round(_income,2)
+
+            _date = data[1]
+            _date = _date.split('-')
+            _date = int(_date[1])
+
+            try:
+                _dict[_date] = _income + _dict.get(_date)
+            except TypeError:
+                _dict[_date] = _income
+
+        return _dict.items()

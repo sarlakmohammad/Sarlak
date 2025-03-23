@@ -74,7 +74,7 @@ class Contractor(customtkinter.CTkFrame):
         self.frame_7.grid(column=2, row=2, sticky='nsew')
         ############################################ column 3
         self.frame_8 = customtkinter.CTkFrame(self,
-                                              fg_color='#8E9EB3',#C5FFA4
+                                              fg_color='#74899E',#C5FFA4
                                               height=255
                                               )
         self.frame_8.grid(column=3, row=2, sticky='nsew')
@@ -421,12 +421,12 @@ class Contractor(customtkinter.CTkFrame):
         data = self.entry2.get()
         landline = self.entry3.get()
         phone_number = self.entry4.get()
-        if contractor or data:
+        if contractor:
             self.db_contractor.insert_into(contractor, data, landline, phone_number)
             self.refresh()
             showinfo('good','completed!')
         else:
-            showerror('empty!','you should fill <پیمانکار> or <نام شخص>')
+            showerror('empty!','you should fill <پیمانکار>')
 
     def clear_entry(self):
         self.entry1.delete(0,'end')
@@ -539,6 +539,8 @@ class Contractor(customtkinter.CTkFrame):
     def add_debt_or_paid(self):
         _text = self.debt_or_paid.get()
         _money = self.debt_or_paid_entry.get()
+        _money = _money.replace('.', '')
+        _money = _money.replace(',', '')
         try:
             _selection = self.data_table.selection()[0]
             _options = self.data_table.item(_selection, option='values')

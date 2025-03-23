@@ -12,7 +12,7 @@ class DBProject:
             customer_id INTEGER REFERENCES db_customer(customer_id),
             estimate BIGINT(20) DEFAULT 0,
             cost BIGINT(20) DEFAULT 0,
-            contradiction VARCHAR(5) DEFAULT "0%",
+            contradiction BIGINT(20) DEFAULT 0,
             paid BIGINT(20) DEFAULT 0,
             date DATE,
             state BOOLEAN DEFAULT FALSE
@@ -41,9 +41,10 @@ class DBProject:
     def show_data(self):
         self.connect_cursor()
         self.cursor.execute('''
-                    SELECT project_id,project,customer_id,estimate,cost,contradiction,paid,state
-                    FROM db_project;
-                ''')
+            SELECT project_id,project,company,estimate,cost,contradiction,db_project.paid,state
+            FROM db_project
+            INNER JOIN db_customer ON db_project.customer_id = db_customer.customer_id
+        ''')
         _data = self.cursor.fetchall()
         return _data
 
@@ -86,7 +87,9 @@ class DBProject:
     def search_data1(self,project_id):
         self.connect_cursor()
         self.cursor.execute(f'''
-            SELECT * FROM db_project
+            SELECT project_id,project,company,estimate,cost,contradiction,db_project.paid,state
+            FROM db_project
+            INNER JOIN db_customer ON db_project.customer_id = db_customer.customer_id
             WHERE project_id LIKE ?;
         ''',(f'%{project_id}%',))
         _data = self.cursor.fetchall()
@@ -95,8 +98,9 @@ class DBProject:
     def search_data2(self,project):
         self.connect_cursor()
         self.cursor.execute(f'''
-            SELECT project_id,project,customer_id,estimate,cost,contradiction,paid,state
+            SELECT project_id,project,company,estimate,cost,contradiction,db_project.paid,state
             FROM db_project
+            INNER JOIN db_customer ON db_project.customer_id = db_customer.customer_id
             WHERE project LIKE ?;
         ''',(f'%{project}%',))
         _data = self.cursor.fetchall()
@@ -137,12 +141,21 @@ class DBProject:
         self.cursor.execute('''
             UPDATE db_project
             SET state = TRUE
-            WHERE project_id = ? AND cost = paid;
+            WHERE project_id = ? AND estimate = paid;
         ''',(project_id,))
         self.cursor.execute('''
             UPDATE db_project
             SET state = FALSE
-            WHERE project_id = ? AND cost <> paid;
+            WHERE project_id = ? AND estimate <> paid;
         ''', (project_id,))
         self.connection.commit()
         self.connection.close()
+
+    def show_income(self):
+        self.connect_cursor()
+        self.cursor.execute('''
+        SELECT contradiction,date
+        FROM db_project
+        ''')
+        _data = self.cursor.fetchall()
+        return _data
