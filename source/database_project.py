@@ -108,6 +108,17 @@ class DBProject:
         ''',(f'%{project}%',))
         _data = self.cursor.fetchall()
         return _data
+    
+    def search_data3(self,id):
+        self.connect_cursor()
+        self.cursor.execute('''
+            SELECT db_FacCont.contractor_id,db_contractor.contractor
+            FROM db_FacCont
+            INNER JOIN db_contractor ON db_FacCont.contractor_id = db_contractor.contractor_id
+            WHERE project_id = ?;
+        ''',(id,))
+        _data = self.cursor.fetchall()
+        return _data
 
     def change_data1(self,cost,project_id):
         self.connect_cursor()

@@ -389,8 +389,8 @@ class Project(customtkinter.CTkFrame):
                                                    font=CTkFont(family='Arial', size=30),
                                                    text_color='white',
                                                    hover_color='#2079D2',
-                                                   height=50
-                                                   # command=
+                                                   height=50,
+                                                   command=self.search_cont
                                                    )
         self.show_con_btn.pack(pady=(20,0))
 
@@ -527,6 +527,20 @@ class Project(customtkinter.CTkFrame):
 
         except TypeError:
             showwarning('oops', 'nothing founded!')
+
+    def search_cont(self):
+        _id = self.show_con_entry.get()
+        if _id:
+            _data = self.db_project.search_data3(_id)
+            if not _data:
+                showwarning('oops', 'nothing founded!')
+                return 0
+            _text = f"project_id={_id}\n{len(_data)} item founded:\n"
+            for i in _data:
+                _text = _text + (f"$ id={i[0]}\tname={i[1]}\n")
+            showinfo("sucsuccessfuly founded!",_text)
+        else:
+            showerror('empty entry','you should enter something first!')
 
     def add_cost_or_paid(self):
         _text = self.debt_or_paid.get()
