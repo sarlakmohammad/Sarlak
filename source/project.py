@@ -12,16 +12,21 @@ class Project(customtkinter.CTkFrame):
     def __init__(self,master,**kwargs):
         super().__init__(master,**kwargs)
 
+        ##############width and height
+        # self.height = self.winfo_height()
+        # row_0 = self.height//21
+        # row_1 = 15*self.height//21
+
         ############################################ column 0
         self.frame_1 = customtkinter.CTkFrame(self,
                                          fg_color='#48D1CC',
-                                         height=51
+                                        #  height=row_0
                                          )
         self.frame_1.grid(column=0, row=0, sticky='nsew')
 
         self.frame_2 = customtkinter.CTkFrame(self,
                                          fg_color='#F5FFFA',#CECECE
-                                         height=765
+                                        #  height=row_1
                                          )
         self.frame_2.grid(column=0, row=1, sticky='nsew')
         self.frame_2.grid_columnconfigure(0, weight=1)
@@ -33,13 +38,12 @@ class Project(customtkinter.CTkFrame):
 
         self.frame_3 = customtkinter.CTkFrame(self,
                                          fg_color='#E88282',#FF9E9E
-                                         height=255
                                          )
         self.frame_3.grid(column=0, row=2, sticky='nsew')
         ############################################ column 1
         self.frame_4 = customtkinter.CTkFrame(self,
                                               fg_color='#FF8C00',
-                                              height=51
+                                            #   height=row_0
                                               )
         self.frame_4.grid(column=1, row=0,columnspan=3 ,sticky='nsew')
         self.frame_4.grid_rowconfigure(0,weight=1)
@@ -48,7 +52,7 @@ class Project(customtkinter.CTkFrame):
 
         self.frame_5 = customtkinter.CTkScrollableFrame(self,
                                               fg_color='#FFB757',
-                                              height=765,
+                                            #   height=row_1,
                                               # scrollbar_button_color='#0000C0',
                                               # scrollbar_button_hover_color='#00009B'
                                               )
@@ -58,19 +62,16 @@ class Project(customtkinter.CTkFrame):
 
         self.frame_6 = customtkinter.CTkFrame(self,
                                               fg_color='#FFA07A',#FF9292
-                                              height=255
                                               )
         self.frame_6.grid(column=1, row=2, sticky='nsew')
         ############################################ column 2
         self.frame_7 = customtkinter.CTkFrame(self,
                                               fg_color='#FD7442',#A4FFB0
-                                              height=255
                                               )
         self.frame_7.grid(column=2, row=2, sticky='nsew')
         ############################################ column 3
         self.frame_8 = customtkinter.CTkFrame(self,
                                               fg_color='#FF4500',#C5FFA4
-                                              height=255
                                               )
         self.frame_8.grid(column=3, row=2, sticky='nsew')
 
@@ -200,7 +201,7 @@ class Project(customtkinter.CTkFrame):
                                                  hover_color='#4E4E4E',
                                                 command=self.clear_entry
                                                  )
-        self.clear_btn.pack()
+        self.clear_btn.pack(pady=(5,0))
         self.submit_btn = customtkinter.CTkButton(self.entry_frame5,
                                                   fg_color='#008000',
                                                   corner_radius=50,
@@ -210,7 +211,7 @@ class Project(customtkinter.CTkFrame):
                                                   hover_color='#005B00',
                                                   command=self.set_entry
                                                   )
-        self.submit_btn.pack(pady=(10,0))
+        self.submit_btn.pack(pady=5)
         ############################################ row 1
         style = ttk.Style()
         style.theme_use("default")
@@ -241,19 +242,19 @@ class Project(customtkinter.CTkFrame):
                                        height=12
                                        )
         self.data_table.grid(column=0,row=0,sticky='nsew')
-        self.data_table.column('id',width=100,minwidth=0,anchor='center',stretch=False)
+        self.data_table.column('id',width=100,minwidth=0,anchor='center')
         self.data_table.heading('id',text='ID')
-        self.data_table.column('پروژه', width=250, minwidth=0, anchor='center', stretch=False)
+        self.data_table.column('پروژه', width=250, minwidth=0, anchor='center')
         self.data_table.heading('پروژه', text='پروژه')
-        self.data_table.column('مشتری', width=250, minwidth=0, anchor='center', stretch=False)
+        self.data_table.column('مشتری', width=250, minwidth=0, anchor='center')
         self.data_table.heading('مشتری', text='مشتری')
-        self.data_table.column('برآورد', width=200, minwidth=0, anchor='center', stretch=False)
+        self.data_table.column('برآورد', width=200, minwidth=0, anchor='center')
         self.data_table.heading('برآورد', text='برآورد')
-        self.data_table.column('هزینه', width=200, minwidth=0, anchor='center', stretch=False)
+        self.data_table.column('هزینه', width=200, minwidth=0, anchor='center')
         self.data_table.heading('هزینه', text='هزینه')
-        self.data_table.column('مغایرت', width=100, minwidth=0, anchor='center', stretch=False)
+        self.data_table.column('مغایرت', width=100, minwidth=0, anchor='center')
         self.data_table.heading('مغایرت', text='مغایرت')
-        self.data_table.column('پرداختی', width=200, minwidth=0, anchor='center', stretch=False)
+        self.data_table.column('پرداختی', width=200, minwidth=0, anchor='center')
         self.data_table.heading('پرداختی', text='پرداختی')
         self.data_table.column('وضعیت تسویه', width=100, minwidth=0, anchor='center')
         self.data_table.heading('وضعیت تسویه', text='وضعیت تسویه')
@@ -323,7 +324,6 @@ class Project(customtkinter.CTkFrame):
         self.debt_or_paid_btn = customtkinter.CTkButton(self.frame_6,
                                                    fg_color='#1E90FF',
                                                    corner_radius=50,
-                                                   height=60,
                                                    text='ثبت',
                                                    font=CTkFont(family='B Nazanin', size=30),
                                                    text_color='white',
@@ -349,18 +349,19 @@ class Project(customtkinter.CTkFrame):
                                                    placeholder_text='آیدی یا اسم پروژه را وارد کنید',
                                                    justify='right'
                                                    )
-        self.search_entry1.pack(pady=(10, 0))
+        self.search_entry1.pack(pady=(15, 0))
 
         self.search_btn1 = customtkinter.CTkButton(self.frame_7,
                                                   fg_color='#1E90FF',
-                                                  corner_radius=50,
+                                                  corner_radius=13,
                                                   text='search',
                                                   font=CTkFont(family='Arial', size=30),
                                                   text_color='white',
                                                   hover_color='#2079D2',
+                                                  height=50,
                                                   command=self.search_project
                                                   )
-        self.search_btn1.pack(pady=20)
+        self.search_btn1.pack(pady=(20,0))
         ############################################ row 2 (4)
         self.show_con_txt = customtkinter.CTkLabel(self.frame_8,
                                                    font=CTkFont(family='B Nazanin', size=30, weight='bold'),
@@ -379,26 +380,27 @@ class Project(customtkinter.CTkFrame):
                                                     placeholder_text='آیدی پیمانکار را وارد کنید',
                                                     justify='right'
                                                     )
-        self.show_con_entry.pack(pady=(10, 0))
+        self.show_con_entry.pack(pady=(15, 0))
 
         self.show_con_btn = customtkinter.CTkButton(self.frame_8,
                                                    fg_color='#1E90FF',
-                                                   corner_radius=50,
+                                                   corner_radius=13,
                                                    text='search',
                                                    font=CTkFont(family='Arial', size=30),
                                                    text_color='white',
                                                    hover_color='#2079D2',
+                                                   height=50
                                                    # command=
                                                    )
-        self.show_con_btn.pack(pady=20)
+        self.show_con_btn.pack(pady=(20,0))
 
-        self.grid_columnconfigure(0, weight=3)
+        self.grid_columnconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=2)
         self.grid_columnconfigure(2, weight=2)
         self.grid_columnconfigure(3, weight=2)
-        self.grid_rowconfigure(0, weight=0)
+        self.grid_rowconfigure(0, weight=1)
         self.grid_rowconfigure(1, weight=15)
-        self.grid_rowconfigure(2, weight=3)
+        self.grid_rowconfigure(2, weight=0)
 
     db_project = DBProject('Data/sarlak1404.db')
 

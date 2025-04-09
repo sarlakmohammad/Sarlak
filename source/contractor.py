@@ -19,17 +19,22 @@ class Contractor(customtkinter.CTkFrame):
 
     def __init__(self,master,**kwargs):
         super().__init__(master,**kwargs)
+        
+        ##############width and height
+        # self.height = self.winfo_height()
+        # row_0 = self.height//21
+        # row_1 = 15*self.height//21
 
         ############################################ column 0
         self.frame_1 = customtkinter.CTkFrame(self,
                                          fg_color='#48D1CC',
-                                         height=51
+                                         #  height=row_0
                                          )
         self.frame_1.grid(column=0, row=0, sticky='nsew')
 
         self.frame_2 = customtkinter.CTkFrame(self,
                                          fg_color='#F5FFFA',#CECECE
-                                         height=765
+                                         #  height=row_1
                                          )
         self.frame_2.grid(column=0, row=1, sticky='nsew')
         self.frame_2.grid_columnconfigure(0, weight=1)
@@ -41,13 +46,12 @@ class Contractor(customtkinter.CTkFrame):
 
         self.frame_3 = customtkinter.CTkFrame(self,
                                          fg_color='#E88282',#FF9E9E
-                                         height=255
                                          )
         self.frame_3.grid(column=0, row=2, sticky='nsew')
         ############################################ column 1
         self.frame_4 = customtkinter.CTkFrame(self,
                                               fg_color='#8BA7C3',
-                                              height=51
+                                              #  height=row_0
                                               )
         self.frame_4.grid(column=1, row=0,columnspan=3 ,sticky='nsew')
         self.frame_4.grid_rowconfigure(0,weight=1)
@@ -56,7 +60,7 @@ class Contractor(customtkinter.CTkFrame):
 
         self.frame_5 = customtkinter.CTkScrollableFrame(self,
                                               fg_color='#A4D2FF',
-                                              height=765,
+                                              #  height=row_1
                                               # scrollbar_button_color='#0000C0',
                                               # scrollbar_button_hover_color='#00009B'
                                               )
@@ -66,19 +70,16 @@ class Contractor(customtkinter.CTkFrame):
 
         self.frame_6 = customtkinter.CTkFrame(self,
                                               fg_color='#ACBFD8',#FF9292
-                                              height=255
                                               )
         self.frame_6.grid(column=1, row=2, sticky='nsew')
         ############################################ column 2
         self.frame_7 = customtkinter.CTkFrame(self,
                                               fg_color='#8E9EB3',#A4FFB0
-                                              height=255
                                               )
         self.frame_7.grid(column=2, row=2, sticky='nsew')
         ############################################ column 3
         self.frame_8 = customtkinter.CTkFrame(self,
                                               fg_color='#74899E',#C5FFA4
-                                              height=255
                                               )
         self.frame_8.grid(column=3, row=2, sticky='nsew')
 
@@ -199,7 +200,7 @@ class Contractor(customtkinter.CTkFrame):
                                                  hover_color='#4E4E4E',
                                                 command=self.clear_entry
                                                  )
-        self.clear_btn.pack()
+        self.clear_btn.pack(pady=(5,0))
         self.submit_btn = customtkinter.CTkButton(self.entry_frame5,
                                                   fg_color='#008000',
                                                   corner_radius=50,
@@ -240,19 +241,19 @@ class Contractor(customtkinter.CTkFrame):
                                        height=12
                                        )
         self.data_table.grid(column=0,row=0,sticky='nsew')
-        self.data_table.column('id',width=50,minwidth=0,anchor='center',stretch=False)
+        self.data_table.column('id',width=50,minwidth=0,anchor='center')
         self.data_table.heading('id',text='ID')
-        self.data_table.column('پیمانکار', width=250, minwidth=0, anchor='center', stretch=False)
+        self.data_table.column('پیمانکار', width=250, minwidth=0, anchor='center')
         self.data_table.heading('پیمانکار', text='پیمانکار')
-        self.data_table.column('نام شخص', width=250, minwidth=0, anchor='center', stretch=False)
+        self.data_table.column('نام شخص', width=250, minwidth=0, anchor='center')
         self.data_table.heading('نام شخص', text='نام')
-        self.data_table.column('شماره تلفن', width=150, minwidth=0, anchor='center', stretch=False)
+        self.data_table.column('شماره تلفن', width=150, minwidth=0, anchor='center')
         self.data_table.heading('شماره تلفن', text=' تلفن')
-        self.data_table.column('شماره موبایل', width=220, minwidth=0, anchor='center', stretch=False)
+        self.data_table.column('شماره موبایل', width=220, minwidth=0, anchor='center')
         self.data_table.heading('شماره موبایل', text='موبایل')
-        self.data_table.column('بدهکار', width=200, minwidth=0, anchor='center', stretch=False)
+        self.data_table.column('بدهکار', width=200, minwidth=0, anchor='center')
         self.data_table.heading('بدهکار', text='بدهکار')
-        self.data_table.column('بستانکار', width=200, minwidth=0, anchor='center', stretch=False)
+        self.data_table.column('بستانکار', width=200, minwidth=0, anchor='center')
         self.data_table.heading('بستانکار', text='بستانکار')
         self.data_table.column('مانده', width=200, minwidth=0, anchor='center')
         self.data_table.heading('مانده', text='مانده')
@@ -322,7 +323,6 @@ class Contractor(customtkinter.CTkFrame):
         self.debt_or_paid_btn = customtkinter.CTkButton(self.frame_6,
                                                    fg_color='#1E90FF',
                                                    corner_radius=50,
-                                                   height=60,
                                                    text='ثبت',
                                                    font=CTkFont(family='B Nazanin', size=30),
                                                    text_color='white',
@@ -348,18 +348,19 @@ class Contractor(customtkinter.CTkFrame):
                                                    placeholder_text='پیمانکار مورد نظر را پیدا کنید',
                                                    justify='right'
                                                    )
-        self.search_entry1.pack(pady=(10, 0))
+        self.search_entry1.pack(pady=(15, 0))
 
         self.search_btn1 = customtkinter.CTkButton(self.frame_7,
                                                   fg_color='#1E90FF',
-                                                  corner_radius=50,
+                                                  corner_radius=13,
                                                   text='search',
                                                   font=CTkFont(family='Arial', size=30),
                                                   text_color='white',
                                                   hover_color='#2079D2',
+                                                  height=50,
                                                   command=self.search_contractor
                                                   )
-        self.search_btn1.pack(pady=20)
+        self.search_btn1.pack(pady=(20,0))
         ############################################ row 2 (4)
         self.search_text2 = customtkinter.CTkLabel(self.frame_8,
                                                    font=CTkFont(family='B Nazanin', size=30, weight='bold'),
@@ -378,26 +379,27 @@ class Contractor(customtkinter.CTkFrame):
                                                     placeholder_text='شخص مورد نظر را پیدا کنید',
                                                     justify='right'
                                                     )
-        self.search_entry2.pack(pady=(10, 0))
+        self.search_entry2.pack(pady=(15, 0))
 
         self.search_btn2 = customtkinter.CTkButton(self.frame_8,
                                                    fg_color='#1E90FF',
-                                                   corner_radius=50,
+                                                   corner_radius=13,
                                                    text='search',
                                                    font=CTkFont(family='Arial', size=30),
                                                    text_color='white',
                                                    hover_color='#2079D2',
+                                                   height=50,
                                                    command=self.search_cont_name
                                                    )
-        self.search_btn2.pack(pady=20)
+        self.search_btn2.pack(pady=(20,0))
 
-        self.grid_columnconfigure(0, weight=3)
+        self.grid_columnconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=2)
         self.grid_columnconfigure(2, weight=2)
         self.grid_columnconfigure(3, weight=2)
-        self.grid_rowconfigure(0, weight=0)
+        self.grid_rowconfigure(0, weight=1)
         self.grid_rowconfigure(1, weight=15)
-        self.grid_rowconfigure(2, weight=3)
+        self.grid_rowconfigure(2, weight=0)
 
     db_contractor = DBContractor('Data/sarlak1404.db')
 

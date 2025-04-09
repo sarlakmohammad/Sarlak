@@ -15,31 +15,31 @@ class Factor(customtkinter.CTkFrame):
     def __init__(self,master,**kwargs):
         super().__init__(master,**kwargs)
 
-        self.grid_columnconfigure(0,weight=350)
-        self.grid_columnconfigure(1,weight=1000)
-        self.grid_columnconfigure(2,weight=350)
-        self.grid_rowconfigure(0,weight=110)
-        self.grid_rowconfigure(1,weight=500)
-        self.grid_rowconfigure(2,weight=4555)
+        self.grid_columnconfigure(0,weight=0)
+        self.grid_columnconfigure(1,weight=1)
+        self.grid_columnconfigure(2,weight=0)
+        self.grid_rowconfigure(0,weight=0)
+        self.grid_rowconfigure(1,weight=5)
+        self.grid_rowconfigure(2,weight=0)
 
         ####################################### column 0
         self.frame_1 = customtkinter.CTkFrame(self,
-                                              width=350,
-                                              height=110,
+                                            #   width=350,
+                                            #   height=110,
                                               fg_color='#19A556'
                                               )
         self.frame_1.grid(column=0, row=0, sticky='nsew')
 
         self.frame_2 = customtkinter.CTkFrame(self,
-                                              width=350,
-                                              height=955,
+                                            #   width=350,
+                                            #   height=955,
                                               fg_color='#DBFFCB'
                                               )
         self.frame_2.grid(column=0, row=1, sticky='nsew', rowspan=2)
         ###################################### column 1
         self.frame_3 = customtkinter.CTkFrame(self,
-                                              width=1000,
-                                              height=110,
+                                            #   width=1000,
+                                            #   height=110,
                                               fg_color='#F5DEB3'
                                               )
         self.frame_3.grid(column=1, row=0, sticky='nsew')
@@ -50,8 +50,8 @@ class Factor(customtkinter.CTkFrame):
         self.frame_3.grid_rowconfigure(0,weight=1)
 
         self.frame_4 = customtkinter.CTkFrame(self,
-                                              width=1000,
-                                              height=500,
+                                            #   width=1000,
+                                            #   height=500,
                                               fg_color='red'
                                               )
         self.frame_4.grid(column=1, row=1, sticky='nsew')
@@ -59,8 +59,8 @@ class Factor(customtkinter.CTkFrame):
         self.frame_4.grid_rowconfigure(0,weight=1)
 
         self.tab_frame = customtkinter.CTkTabview(self,
-                                                  width=1000,
-                                                  height=455,
+                                                #   width=1000,
+                                                #   height=455,
                                                   fg_color='#606060'
                                                   )
         self.tab_frame.grid(column=1, row=2, sticky='nsew')
@@ -74,19 +74,18 @@ class Factor(customtkinter.CTkFrame):
         self.tab_frame.add('...')
         ###################################### column 2
         self.frame_5 = customtkinter.CTkFrame(self,
-                                              width=350,
-                                              height=110,
+                                            #   width=350,
+                                            #   height=110,
                                               fg_color='#74899E'
                                               )
         self.frame_5.grid(column=2, row=0, sticky='nsew')
 
         self.frame_6 = customtkinter.CTkFrame(self,
-                                              width=350,
-                                              height=955,
+                                            #   width=350,
+                                            #   height=955,
                                               fg_color='#DBE8F7'
                                               )
         self.frame_6.grid(column=2, row=1, sticky='nsew', rowspan=2)
-
         ########################################################### vigets
         ################################################################### column 0
         self.cus_title = customtkinter.CTkLabel(self.frame_1,
@@ -94,7 +93,7 @@ class Factor(customtkinter.CTkFrame):
                                                font=CTkFont(family='B Nazanin', size=30, weight='bold'),
                                                text_color="black"
                                                )
-        self.cus_title.pack(pady=13,padx=5)
+        self.cus_title.pack(pady=8,padx=5)
         ####
         self.cus_txt1 = customtkinter.CTkLabel(self.frame_2,
                                               text='شماره فاکتور',
@@ -111,7 +110,7 @@ class Factor(customtkinter.CTkFrame):
                                                  height=35,
                                                  width=250
                                                  )
-        self.cus_entry1.pack(pady=(0,25),padx=5)
+        self.cus_entry1.pack(pady=(0,10),padx=5)
         ####
         self.cus_txt2 = customtkinter.CTkLabel(self.frame_2,
                                               text='تاریخ فاکتور',
@@ -129,7 +128,7 @@ class Factor(customtkinter.CTkFrame):
                                                  width=250,
                                                  placeholder_text='1404/01/01'
                                                  )
-        self.cus_entry2.pack(pady=(0,25),padx=5)
+        self.cus_entry2.pack(pady=(0,10),padx=5)
         ####
         self.cus_txt3 = customtkinter.CTkLabel(self.frame_2,
                                               text='آیدی مشتری',
@@ -146,7 +145,7 @@ class Factor(customtkinter.CTkFrame):
                                                  height=35,
                                                  width=250
                                                  )
-        self.cus_entry3.pack(pady=(0,25),padx=5)
+        self.cus_entry3.pack(pady=(0,10),padx=5)
         ####
         self.cus_txt4 = customtkinter.CTkLabel(self.frame_2,
                                               text='آیدی پروژه',
@@ -163,7 +162,7 @@ class Factor(customtkinter.CTkFrame):
                                                  height=35,
                                                  width=250
                                                  )
-        self.cus_entry4.pack(pady=(0,25),padx=5)
+        self.cus_entry4.pack(pady=(0,10),padx=5)
         ####
         self.cus_txt5 = customtkinter.CTkLabel(self.frame_2,
                                               text='مبلغ',
@@ -180,7 +179,7 @@ class Factor(customtkinter.CTkFrame):
                                                  height=35,
                                                  width=250
                                                  )
-        self.cus_entry5.pack(pady=(0,25),padx=5)
+        self.cus_entry5.pack(pady=(0,10),padx=5)
         ####
         self.cus_clear_btn = customtkinter.CTkButton(self.frame_2,
                                                      fg_color='#7C7C7C',
@@ -192,7 +191,7 @@ class Factor(customtkinter.CTkFrame):
                                                      width=170,
                                                      command=self.clear_entry1
                                                      )
-        self.cus_clear_btn.pack(pady=(25,0),padx=5)
+        self.cus_clear_btn.pack(pady=(10,0),padx=5)
 
         self.cus_submit_btn = customtkinter.CTkButton(self.frame_2,
                                                       fg_color='#008000',
@@ -205,7 +204,7 @@ class Factor(customtkinter.CTkFrame):
                                                       width=170,
                                                       command=self.set_entry1
                                                       )
-        self.cus_submit_btn.pack(pady=(15,0),padx=5)
+        self.cus_submit_btn.pack(pady=(10,0),padx=5)
         #################################################################### column 1
         self.Income_btn = customtkinter.CTkButton(self.frame_3,
                                                  fg_color='#2E8B57',
@@ -280,19 +279,19 @@ class Factor(customtkinter.CTkFrame):
                                        height=12
                                        )
         self.data_table.grid(column=0, row=0, sticky='nsew')
-        self.data_table.column('id', width=100, minwidth=0, anchor='center', stretch=False)
+        self.data_table.column('id', width=100, minwidth=0, anchor='center')
         self.data_table.heading('id', text='ID')
-        self.data_table.column("شماره", width=250, minwidth=0, anchor='center', stretch=False)
+        self.data_table.column("شماره", width=250, minwidth=0, anchor='center')
         self.data_table.heading("شماره", text="شماره فاکتور")
-        self.data_table.column("تاریخ", width=250, minwidth=0, anchor='center', stretch=False)
+        self.data_table.column("تاریخ", width=250, minwidth=0, anchor='center')
         self.data_table.heading("تاریخ", text="تاریخ")
-        self.data_table.column("طرف حساب", width=250, minwidth=0, anchor='center', stretch=False)
+        self.data_table.column("طرف حساب", width=250, minwidth=0, anchor='center')
         self.data_table.heading("طرف حساب", text="طرف حساب")
-        self.data_table.column("آیدی پروژه", width=250, minwidth=0, anchor='center', stretch=False)
+        self.data_table.column("آیدی پروژه", width=250, minwidth=0, anchor='center')
         self.data_table.heading("آیدی پروژه", text="پروژه")
-        self.data_table.column("هزینه", width=250, minwidth=0, anchor='center', stretch=False)
+        self.data_table.column("هزینه", width=250, minwidth=0, anchor='center')
         self.data_table.heading("هزینه", text="هزینه")
-        self.data_table.column("وضعیت", width=100, minwidth=0, anchor='center', stretch=False)
+        self.data_table.column("وضعیت", width=100, minwidth=0, anchor='center')
         self.data_table.heading("وضعیت", text="وضعیت")
 
         self.data_table.tag_configure('0', font=CTkFont(family='B Nazanin', size=35), background='#1D5BB9')
@@ -408,7 +407,7 @@ class Factor(customtkinter.CTkFrame):
                                                 font=CTkFont(family='B Nazanin', size=30, weight='bold'),
                                                 text_color="black"
                                                 )
-        self.cont_title.pack(pady=13,padx=5)
+        self.cont_title.pack(pady=8,padx=5)
         ####
         self.cont_txt1 = customtkinter.CTkLabel(self.frame_6,
                                                text='شماره فاکتور',
@@ -425,7 +424,7 @@ class Factor(customtkinter.CTkFrame):
                                                  height=35,
                                                  width=250
                                                  )
-        self.cont_entry1.pack(pady=(0, 25),padx=5)
+        self.cont_entry1.pack(pady=(0, 10),padx=5)
         ####
         self.cont_txt2 = customtkinter.CTkLabel(self.frame_6,
                                                text='تاریخ فاکتور',
@@ -443,7 +442,7 @@ class Factor(customtkinter.CTkFrame):
                                                  width=250,
                                                  placeholder_text='1404/01/01'
                                                  )
-        self.cont_entry2.pack(pady=(0, 25),padx=5)
+        self.cont_entry2.pack(pady=(0, 10),padx=5)
         ####
         self.cont_txt3 = customtkinter.CTkLabel(self.frame_6,
                                                text='آیدی پیمانکار',
@@ -460,7 +459,7 @@ class Factor(customtkinter.CTkFrame):
                                                  height=35,
                                                  width=250
                                                  )
-        self.cont_entry3.pack(pady=(0, 25),padx=5)
+        self.cont_entry3.pack(pady=(0, 10),padx=5)
         ####
         self.cont_txt4 = customtkinter.CTkLabel(self.frame_6,
                                                text='آیدی پروژه',
@@ -477,7 +476,7 @@ class Factor(customtkinter.CTkFrame):
                                                  height=35,
                                                  width=250
                                                  )
-        self.cont_entry4.pack(pady=(0, 25),padx=5)
+        self.cont_entry4.pack(pady=(0, 10),padx=5)
         ####
         self.cont_txt5 = customtkinter.CTkLabel(self.frame_6,
                                                text='مبلغ',
@@ -494,7 +493,7 @@ class Factor(customtkinter.CTkFrame):
                                                  height=35,
                                                  width=250
                                                  )
-        self.cont_entry5.pack(pady=(0, 25),padx=5)
+        self.cont_entry5.pack(pady=(0, 10),padx=5)
         ####
         self.cont_clear_btn = customtkinter.CTkButton(self.frame_6,
                                                      fg_color='#7C7C7C',
@@ -506,7 +505,7 @@ class Factor(customtkinter.CTkFrame):
                                                      width=170,
                                                      command=self.clear_entry2
                                                      )
-        self.cont_clear_btn.pack(pady=(25, 0), padx=5)
+        self.cont_clear_btn.pack(pady=(10, 0), padx=5)
 
         self.cont_submit_btn = customtkinter.CTkButton(self.frame_6,
                                                       fg_color='#008000',
@@ -519,7 +518,7 @@ class Factor(customtkinter.CTkFrame):
                                                       width=170,
                                                       command=self.set_entry2
                                                       )
-        self.cont_submit_btn.pack(pady=(15, 0),padx=5)
+        self.cont_submit_btn.pack(pady=(10, 0),padx=5)
 
     db_FacCus = DBFacCus('Data/sarlak1404.db')
     db_FacCont = DBFacCont('Data/sarlak1404.db')
