@@ -279,19 +279,19 @@ class Factor(customtkinter.CTkFrame):
                                        height=12
                                        )
         self.data_table.grid(column=0, row=0, sticky='nsew')
-        self.data_table.column('id', width=100, minwidth=0, anchor='center')
+        self.data_table.column('id', width=150, minwidth=0, anchor='center')
         self.data_table.heading('id', text='ID')
-        self.data_table.column("شماره", width=250, minwidth=0, anchor='center')
+        self.data_table.column("شماره", width=220, minwidth=0, anchor='center')
         self.data_table.heading("شماره", text="شماره فاکتور")
-        self.data_table.column("تاریخ", width=250, minwidth=0, anchor='center')
+        self.data_table.column("تاریخ", width=200, minwidth=0, anchor='center')
         self.data_table.heading("تاریخ", text="تاریخ")
-        self.data_table.column("طرف حساب", width=250, minwidth=0, anchor='center')
+        self.data_table.column("طرف حساب", width=260, minwidth=0, anchor='center')
         self.data_table.heading("طرف حساب", text="طرف حساب")
-        self.data_table.column("آیدی پروژه", width=250, minwidth=0, anchor='center')
+        self.data_table.column("آیدی پروژه", width=260, minwidth=0, anchor='center')
         self.data_table.heading("آیدی پروژه", text="پروژه")
         self.data_table.column("هزینه", width=250, minwidth=0, anchor='center')
         self.data_table.heading("هزینه", text="هزینه")
-        self.data_table.column("وضعیت", width=100, minwidth=0, anchor='center')
+        self.data_table.column("وضعیت", width=110, minwidth=0, anchor='center')
         self.data_table.heading("وضعیت", text="وضعیت")
 
         self.data_table.tag_configure('0', font=CTkFont(family='B Nazanin', size=35), background='#1D5BB9')
@@ -318,7 +318,7 @@ class Factor(customtkinter.CTkFrame):
                                                  width=250,
                                                  text_color='black',
                                                  font=CTkFont(size=25, family='Arial'),
-                                                 placeholder_text='factor ID',
+                                                 placeholder_text='factor number',
                                                  )
         self.fac_entry1.pack(pady=15)
 

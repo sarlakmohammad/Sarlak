@@ -242,11 +242,11 @@ class Customer(customtkinter.CTkFrame):
                                        height=12
                                        )
         self.data_table.grid(column=0,row=0,sticky='nsew')
-        self.data_table.column('id',width=50,minwidth=0,anchor='center')
+        self.data_table.column('id',width=70,minwidth=0,anchor='center')
         self.data_table.heading('id',text='ID')
-        self.data_table.column('شرکت', width=250, minwidth=0, anchor='center')
+        self.data_table.column('شرکت', width=240, minwidth=0, anchor='center')
         self.data_table.heading('شرکت', text='شرکت')
-        self.data_table.column('نام مشتری', width=250, minwidth=0, anchor='center')
+        self.data_table.column('نام مشتری', width=240, minwidth=0, anchor='center')
         self.data_table.heading('نام مشتری', text='نام مشتری')
         self.data_table.column('شماره تلفن', width=150, minwidth=0, anchor='center')
         self.data_table.heading('شماره تلفن', text=' تلفن')
@@ -270,7 +270,7 @@ class Customer(customtkinter.CTkFrame):
                                                   text='حذف شرکت (@مشتری)',
                                                   text_color='black'
                                                   )
-        self.delete_text.pack(pady=8)
+        self.delete_text.pack(pady=(16,8))
 
         self.delete_entry = customtkinter.CTkEntry(self.frame_3,
                                                    corner_radius=10,
@@ -395,9 +395,9 @@ class Customer(customtkinter.CTkFrame):
         self.search_btn2.pack(pady=(20,0))
 
         self.grid_columnconfigure(0, weight=1)
-        self.grid_columnconfigure(1, weight=2)
-        self.grid_columnconfigure(2, weight=2)
-        self.grid_columnconfigure(3, weight=2)
+        self.grid_columnconfigure(1, weight=4)
+        self.grid_columnconfigure(2, weight=4)
+        self.grid_columnconfigure(3, weight=4)
         self.grid_rowconfigure(0, weight=1)
         self.grid_rowconfigure(1, weight=15)
         self.grid_rowconfigure(2, weight=0)

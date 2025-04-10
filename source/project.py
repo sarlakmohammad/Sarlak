@@ -244,19 +244,19 @@ class Project(customtkinter.CTkFrame):
         self.data_table.grid(column=0,row=0,sticky='nsew')
         self.data_table.column('id',width=100,minwidth=0,anchor='center')
         self.data_table.heading('id',text='ID')
-        self.data_table.column('پروژه', width=250, minwidth=0, anchor='center')
+        self.data_table.column('پروژه', width=215, minwidth=0, anchor='center')
         self.data_table.heading('پروژه', text='پروژه')
-        self.data_table.column('مشتری', width=250, minwidth=0, anchor='center')
+        self.data_table.column('مشتری', width=215, minwidth=0, anchor='center')
         self.data_table.heading('مشتری', text='مشتری')
-        self.data_table.column('برآورد', width=200, minwidth=0, anchor='center')
+        self.data_table.column('برآورد', width=215, minwidth=0, anchor='center')
         self.data_table.heading('برآورد', text='برآورد')
-        self.data_table.column('هزینه', width=200, minwidth=0, anchor='center')
+        self.data_table.column('هزینه', width=215, minwidth=0, anchor='center')
         self.data_table.heading('هزینه', text='هزینه')
         self.data_table.column('مغایرت', width=100, minwidth=0, anchor='center')
         self.data_table.heading('مغایرت', text='مغایرت')
-        self.data_table.column('پرداختی', width=200, minwidth=0, anchor='center')
+        self.data_table.column('پرداختی', width=215, minwidth=0, anchor='center')
         self.data_table.heading('پرداختی', text='پرداختی')
-        self.data_table.column('وضعیت تسویه', width=100, minwidth=0, anchor='center')
+        self.data_table.column('وضعیت تسویه', width=125, minwidth=0, anchor='center')
         self.data_table.heading('وضعیت تسویه', text='وضعیت تسویه')
 
         self.data_table.tag_configure('0', font=CTkFont(family='B Nazanin', size=35),background='#1D5BB9')
@@ -270,7 +270,7 @@ class Project(customtkinter.CTkFrame):
                                                   text='حذف پروژه',
                                                   text_color='black'
                                                   )
-        self.delete_text.pack(pady=8)
+        self.delete_text.pack(pady=(16,8))
 
         self.delete_entry = customtkinter.CTkEntry(self.frame_3,
                                                    corner_radius=10,
@@ -395,9 +395,9 @@ class Project(customtkinter.CTkFrame):
         self.show_con_btn.pack(pady=(20,0))
 
         self.grid_columnconfigure(0, weight=1)
-        self.grid_columnconfigure(1, weight=2)
-        self.grid_columnconfigure(2, weight=2)
-        self.grid_columnconfigure(3, weight=2)
+        self.grid_columnconfigure(1, weight=3)
+        self.grid_columnconfigure(2, weight=3)
+        self.grid_columnconfigure(3, weight=3)
         self.grid_rowconfigure(0, weight=1)
         self.grid_rowconfigure(1, weight=15)
         self.grid_rowconfigure(2, weight=0)

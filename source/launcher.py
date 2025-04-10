@@ -16,7 +16,7 @@ window.iconbitmap('icon/2.ico')
 
 width =  window.winfo_screenwidth()
 height = window.winfo_screenheight()
-window.minsize(1400,850)
+window.minsize(1500,850)
 window.maxsize(1800,1100)
 window.geometry(f"{width}x{height}+0+0")
 
