@@ -129,7 +129,8 @@ class Contractor(customtkinter.CTkFrame):
                                              width=200,
                                              text_color='black',
                                              font=CTkFont(family='B Nazanin',size=20),
-                                             justify='right'
+                                             justify='right',
+                                             placeholder_text='*'
                                              )
         self.entry1.pack()
         ##################

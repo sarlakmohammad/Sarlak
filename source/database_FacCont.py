@@ -122,6 +122,38 @@ class DBFacCont:
         _data = self.cursor.fetchall()
         return _data
 
+    def delete_trash(self):
+        self.connect_cursor()
+
+        # finding all idies
+        self.cursor.execute('''
+            SELECT factor_id
+            FROM db_FacCont;
+        ''')
+        _total_id = self.cursor.fetchall()
+        for _ in _total_id:
+            index = _total_id.index(_)
+            _total_id[index] = _[0]
+
+        # seprating foundable idies
+        self.cursor.execute('''
+            SELECT factor_id,contractor,project
+            FROM ((db_FacCont
+            INNER JOIN db_contractor ON db_FacCont.contractor_id = db_contractor.contractor_id)
+            INNER JOIN db_project ON db_FacCont.project_id = db_project.project_id);
+        ''')
+        _founded_id = self.cursor.fetchall()
+        for _ in _founded_id:
+            index = _founded_id.index(_)
+            _founded_id[index] = _[0]
+
+        #searching for bad idies and delete them
+        for _ in _total_id:
+            if not _ in _founded_id:
+                self.delete_data2(_)
+
+        self.connection.close()
+
     def change_state(self,factor_id):
         self.connect_cursor()
         self.cursor.execute('''
@@ -150,7 +182,7 @@ class DBFacCont:
         self.connection.commit()
         self.connection.close()
 
-    def delete_data(self,factor):
+    def delete_data1(self,factor):
         self.connect_cursor()
         self.cursor.execute('''
             SELECT state,cost,project_id,contractor_id
@@ -178,6 +210,37 @@ class DBFacCont:
             DELETE FROM db_FacCont
             WHERE factor = ?;
         ''', (factor,))
+        self.connection.commit()
+        self.connection.close()
+
+    def delete_data2(self,factor_id):
+        self.connect_cursor()
+        self.cursor.execute('''
+            SELECT state,cost,project_id,contractor_id
+            FROM db_FacCont
+            WHERE factor_id = ?;
+        ''', (factor_id,))
+        #### data
+        _list = self.cursor.fetchone()
+        _state = bool(_list[0])
+        _money = int(_list[1])
+        _project_id = int(_list[2])
+        _contractor_id = int(_list[3])
+        #### project
+        self.cursor.execute('''
+            UPDATE db_project
+            SET cost = cost - ?
+            WHERE project_id = ?
+        ''',(_money,_project_id))
+        self.update_project(_project_id)
+        #### check for a condition
+        if not _state:
+            self.add_paid_to_cont(_money,_contractor_id)
+        #### delete factor
+        self.cursor.execute('''
+            DELETE FROM db_FacCont
+            WHERE factor_id = ?;
+        ''', (factor_id,))
         self.connection.commit()
         self.connection.close()
 
