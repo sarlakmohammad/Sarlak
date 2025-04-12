@@ -121,7 +121,8 @@ class Project(customtkinter.CTkFrame):
                                              width=200,
                                              text_color='black',
                                              font=CTkFont(family='B Nazanin',size=20),
-                                             justify='right'
+                                             justify='right',
+                                             placeholder_text='*'
                                              )
         self.entry1.pack()
         ##################
@@ -139,7 +140,8 @@ class Project(customtkinter.CTkFrame):
                                              height=35,
                                              width=200,
                                              text_color='black',
-                                             font=CTkFont(family='Arial',size=20)
+                                             font=CTkFont(family='Arial',size=20),
+                                             placeholder_text='*'
                                              )
         self.entry2.pack()
         ##################
@@ -157,7 +159,8 @@ class Project(customtkinter.CTkFrame):
                                              height=35,
                                              width=200,
                                              text_color='black',
-                                             font=CTkFont(size=20)
+                                             font=CTkFont(size=20),
+                                             placeholder_text='*'
                                              )
         self.entry3.pack()
         self.estimate_btn = customtkinter.CTkButton(self.entry_frame3,
@@ -186,7 +189,7 @@ class Project(customtkinter.CTkFrame):
                                              width=200,
                                              text_color='black',
                                              font=CTkFont(size=20),
-                                             placeholder_text='1404/01/01'
+                                             placeholder_text='*1404/01/01*'
                                              )
         self.entry4.pack()
         ##################
@@ -440,12 +443,12 @@ class Project(customtkinter.CTkFrame):
         estimate = estimate.replace(',', '')
         date = self.entry4.get()
         date = date.replace("/","-")
-        if project and estimate and customer_id:
+        if project and estimate and customer_id and date:
             self.db_project.insert_into(project, customer_id, estimate, date)
             self.refresh()
             showinfo('good','completed!')
         else:
-            showerror('empty entry!','you should fill <اسم پروژه> and <برآورد> and <آیدی مشتری>')
+            showerror('empty entry!','you should fill all entries!')
 
     def clear_entry(self):
         self.entry1.delete(0,'end')
@@ -479,6 +482,7 @@ class Project(customtkinter.CTkFrame):
                 showwarning(':/',f'{_project} not founded!')
 
     def delete_selection(self):
+        self.db_project.delete_trash()
         try:
             _selected = self.data_table.selection()[0]
             self.data_table.delete(_selected)

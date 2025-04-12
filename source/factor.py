@@ -108,7 +108,8 @@ class Factor(customtkinter.CTkFrame):
                                                  text_color='black',
                                                  font=CTkFont(size=25),
                                                  height=35,
-                                                 width=250
+                                                 width=250,
+                                                 placeholder_text='*'
                                                  )
         self.cus_entry1.pack(pady=(0,10),padx=5)
         ####
@@ -143,7 +144,8 @@ class Factor(customtkinter.CTkFrame):
                                                  text_color='black',
                                                  font=CTkFont(size=25),
                                                  height=35,
-                                                 width=250
+                                                 width=250,
+                                                 placeholder_text='*'
                                                  )
         self.cus_entry3.pack(pady=(0,10),padx=5)
         ####
@@ -160,7 +162,8 @@ class Factor(customtkinter.CTkFrame):
                                                  text_color='black',
                                                  font=CTkFont(size=25),
                                                  height=35,
-                                                 width=250
+                                                 width=250,
+                                                 placeholder_text='*'
                                                  )
         self.cus_entry4.pack(pady=(0,10),padx=5)
         ####
@@ -177,7 +180,8 @@ class Factor(customtkinter.CTkFrame):
                                                  text_color='black',
                                                  font=CTkFont(size=25),
                                                  height=35,
-                                                 width=250
+                                                 width=250,
+                                                 placeholder_text='*'
                                                  )
         self.cus_entry5.pack(pady=(0,10),padx=5)
         ####
@@ -422,7 +426,8 @@ class Factor(customtkinter.CTkFrame):
                                                  text_color='black',
                                                  font=CTkFont(size=25),
                                                  height=35,
-                                                 width=250
+                                                 width=250,
+                                                 placeholder_text='*'
                                                  )
         self.cont_entry1.pack(pady=(0, 10),padx=5)
         ####
@@ -457,7 +462,8 @@ class Factor(customtkinter.CTkFrame):
                                                  text_color='black',
                                                  font=CTkFont(size=25),
                                                  height=35,
-                                                 width=250
+                                                 width=250,
+                                                 placeholder_text='*'
                                                  )
         self.cont_entry3.pack(pady=(0, 10),padx=5)
         ####
@@ -474,7 +480,8 @@ class Factor(customtkinter.CTkFrame):
                                                  text_color='black',
                                                  font=CTkFont(size=25),
                                                  height=35,
-                                                 width=250
+                                                 width=250,
+                                                 placeholder_text='*'
                                                  )
         self.cont_entry4.pack(pady=(0, 10),padx=5)
         ####
@@ -491,7 +498,8 @@ class Factor(customtkinter.CTkFrame):
                                                  text_color='black',
                                                  font=CTkFont(size=25),
                                                  height=35,
-                                                 width=250
+                                                 width=250,
+                                                 placeholder_text='*'
                                                  )
         self.cont_entry5.pack(pady=(0, 10),padx=5)
         ####
@@ -564,12 +572,12 @@ class Factor(customtkinter.CTkFrame):
         cost = self.cont_entry5.get()
         cost = cost.replace(',','')
         cost = cost.replace('.','')
-        if factor and contractor_id and project_id:
+        if factor and contractor_id and project_id and cost:
             self.db_FacCont.insert_into(factor, date, contractor_id, project_id, cost)
             self.refresh()
             showinfo('good', 'completed!')
         else:
-            showerror('empty!', 'you should fill <فاکتور> and <آیدی پیمانکار/پروژه>')
+            showerror('empty!', 'you should fill <فاکتور> and <آیدی پیمانکار/پروژه> and <هزینه>')
 
     def set_entry1(self):
         factor = self.cus_entry1.get()
@@ -580,12 +588,12 @@ class Factor(customtkinter.CTkFrame):
         cost = self.cus_entry5.get()
         cost = cost.replace(',', '')
         cost = cost.replace('.', '')
-        if factor and customer_id and project_id:
+        if factor and customer_id and project_id and cost:
             self.db_FacCus.insert_into(factor, date, customer_id, project_id, cost)
             self.refresh()
             showinfo('good', 'completed!')
         else:
-            showerror('empty!', 'you should fill <فاکتور> and <آیدی مشتری/پروژه>')
+            showerror('empty!', 'you should fill <فاکتور> and <آیدی مشتری/پروژه> and <هزینه>')
 
     def clear_entry2(self):
         self.cont_entry1.delete(0,'end')
@@ -602,6 +610,10 @@ class Factor(customtkinter.CTkFrame):
         self.cus_entry5.delete(0,'end')
 
     def delete_selection(self):
+        if self.check_fac_type():
+            self.db_FacCont.delete_trash()
+        else:
+            self.db_FacCus.delete_trash()
         try:
             _selected = self.data_table.selection()[0]
             self.data_table.delete(_selected)
@@ -616,9 +628,9 @@ class Factor(customtkinter.CTkFrame):
                 return -1
             if askokcancel('are you sure?','this action changes the main DataBase'):
                 if self.check_fac_type():
-                    self.db_FacCont.delete_data(_text)
+                    self.db_FacCont.delete_data1(_text)
                 else:
-                    self.db_FacCus.delete_data(_text)
+                    self.db_FacCus.delete_data1(_text)
                 self.refresh()
         except TypeError:
             showerror('Not Founded!','factor not founded')

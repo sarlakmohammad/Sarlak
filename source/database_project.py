@@ -12,12 +12,12 @@ class DBProject:
         CREATE TABLE IF NOT EXISTS db_project(
             project_id INTEGER PRIMARY KEY AUTOINCREMENT,
             project NVARCHAR(50) NOT NULL UNIQUE,
-            customer_id INTEGER REFERENCES db_customer(customer_id),
+            customer_id INTEGER NOT NULL REFERENCES db_customer(customer_id),
             estimate BIGINT(20) DEFAULT 0,
             cost BIGINT(20) DEFAULT 0,
             contradiction BIGINT(20) DEFAULT 0,
             paid BIGINT(20) DEFAULT 0,
-            date DATE,
+            date DATE NOT NULL,
             state BOOLEAN DEFAULT FALSE
         );
         ''')
@@ -50,6 +50,37 @@ class DBProject:
         ''')
         _data = self.cursor.fetchall()
         return _data
+    
+    def delete_trash(self):
+        self.connect_cursor()
+
+        # finding all idies
+        self.cursor.execute('''
+            SELECT project_id
+            FROM db_project;
+        ''')
+        _total_id = self.cursor.fetchall()
+        for _ in _total_id:
+            index = _total_id.index(_)
+            _total_id[index] = _[0]
+
+        # seprating foundable idies
+        self.cursor.execute('''
+            SELECT project_id,company
+            FROM db_project
+            INNER JOIN db_customer ON db_project.customer_id = db_customer.customer_id
+        ''')
+        _founded_id = self.cursor.fetchall()
+        for _ in _founded_id:
+            index = _founded_id.index(_)
+            _founded_id[index] = _[0]
+
+        #searching for bad idies and delete them
+        for _ in _total_id:
+            if not _ in _founded_id:
+                self.delete_data1(_)
+
+        self.connection.close()
 
     def delete_data1(self,project_id):
         self.connect_cursor()
