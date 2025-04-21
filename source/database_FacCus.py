@@ -11,7 +11,7 @@ class DBFacCus:
         self.cursor.execute('''
         CREATE TABLE IF NOT EXISTS db_FacCus(
             factor_id INTEGER PRIMARY KEY AUTOINCREMENT,
-            factor NVARCHAR(15) NOT NULL UNIQUE,
+            factor NVARCHAR(15) NOT NULL,
             date DATE,
             customer_id INTEGER NOT NULL REFERENCES db_customer(customer_id),
             project_id INTEGER NOT NULL REFERENCES db_project(project_id),

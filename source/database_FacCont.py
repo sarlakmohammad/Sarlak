@@ -11,7 +11,7 @@ class DBFacCont:
         self.cursor.execute('''
         CREATE TABLE IF NOT EXISTS db_FacCont(
             factor_id INTEGER PRIMARY KEY AUTOINCREMENT,
-            factor NVARCHAR(15) NOT NULL UNIQUE,
+            factor NVARCHAR(15) NOT NULL,
             date DATE,
             contractor_id INTEGER NOT NULL REFERENCES db_contractor(contractor_id),
             project_id INTEGER NOT NULL REFERENCES db_project(project_id),
